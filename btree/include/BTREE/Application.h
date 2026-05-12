@@ -1,6 +1,6 @@
 #ifndef CS008_LABS_APPLICATION_H
 #define CS008_LABS_APPLICATION_H
-#include "BTree.h"
+#include <BTREE/BTree.h>
 #include <iostream>
 
 class Application {

@@ -11,5 +11,6 @@ struct BTreeNode {
     explicit BTreeNode(const std::vector<std::pair<KeyType, ValueType>> &keysValues);
 };
 
-#include "BTreeNode.cpp"
+#include <BTREE/detail/BTreeNode.tpp>
+
 #endif //CS008_LABS_BTREENODE_H

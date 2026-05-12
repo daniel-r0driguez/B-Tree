@@ -1,6 +1,6 @@
 #ifndef CS008_LABS_BTREE_CPP
 #define CS008_LABS_BTREE_CPP
-#include "BTree.h"
+#include<BTREE/BTree.h>
 
 template<typename KeyType, typename ValueType, int MAX>
 int BTree<KeyType, ValueType, MAX>::ALLOCATIONS = 0;
