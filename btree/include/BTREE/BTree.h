@@ -79,7 +79,7 @@ private:
     void merge_left(BTreeNode<KeyType, ValueType> *parent, int subsetIndex);
     void shrinkTree();
     void clearSubset(BTreeNode<KeyType, ValueType> *root);
-    KeyType& findPredecessor(BTreeNode<KeyType, ValueType> *root);
+    std::pair<KeyType, ValueType>& findPredecessor(BTreeNode<KeyType, ValueType> *root);
     BTreeNode<KeyType, ValueType>* copyTree(const BTreeNode<KeyType, ValueType> *root);
 
 };
