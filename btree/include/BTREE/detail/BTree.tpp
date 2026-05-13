@@ -167,9 +167,11 @@ bool BTree<KeyType, ValueType, MAX>::remove(const KeyType &key)
     if (!this->_root) return false;
 
     bool removed = loose_remove(this->_root, key);
+    
     if (removed)
     {
         decrementKeyCount();
+        // Assign child to be next root (when parent/root is empty)
         if (this->_root->keysValues.empty())
         {
             shrinkTree();
@@ -290,9 +292,9 @@ template<typename KeyType, typename ValueType, int MAX>
 bool BTree<KeyType, ValueType, MAX>::loose_remove(BTreeNode<KeyType, ValueType> *root, const KeyType &key)
 {
     int index = find_ge(root, key);
-    bool found = index < root->keysValues.size() && root->keysValues.at(index).first == key;
+    bool found = (index < root->keysValues.size()) && (root->keysValues.at(index).first == key);
     bool removed = false;
-
+    
     // If the key was found at a leaf-node...
     if (found && root->subsets.empty())
     {
@@ -304,9 +306,12 @@ bool BTree<KeyType, ValueType, MAX>::loose_remove(BTreeNode<KeyType, ValueType> 
     // Call loose_insert again from that subset with the same key value as before.
     else if (found && !root->subsets.empty())
     {
-        KeyType& predecessor = findPredecessor(root->subsets.at(index));
-        root->keysValues.at(index).first = predecessor;
-        predecessor = key;
+        // Acquire predecessor reference
+        std::pair<KeyType, ValueType>& predecessor = findPredecessor(root->subsets.at(index));
+        // Assign predecessor data to take the spot of the targeted key/value pair to be deleted
+        root->keysValues.at(index) = predecessor;
+        // Assign predecessor node to be next target to delete (until a leaf node is reached)
+        predecessor.first = key;
         removed = loose_remove(root->subsets.at(index), key);
     }
     // If it wasn't found but there are still subsets to check, call loose_insert() on the required subset.
@@ -416,7 +421,7 @@ void BTree<KeyType, ValueType, MAX>::merge_left(BTreeNode<KeyType, ValueType> *p
     BTreeNode<KeyType, ValueType> *leftSubtree = (subsetIndex <= 0) ? parent->subsets.at(subsetIndex) :
                                 parent->subsets.at(subsetIndex - 1);
 
-    auto keyValueIter= (subsetIndex <= 0) ? parent->keysValues.begin() : parent->keysValues.begin() + (subsetIndex - 1);
+    auto keyValueIter = (subsetIndex <= 0) ? parent->keysValues.begin() : parent->keysValues.begin() + (subsetIndex - 1);
     // Push the appropriate key from the parent into the key's left subtree.
     leftSubtree->keysValues.push_back(*keyValueIter);
 
@@ -485,10 +490,12 @@ void BTree<KeyType, ValueType, MAX>::clearSubset(BTreeNode<KeyType, ValueType> *
 }
 
 template<typename KeyType, typename ValueType, int MAX>
-KeyType &BTree<KeyType, ValueType, MAX>::findPredecessor(BTreeNode<KeyType, ValueType> *root)
+std::pair<KeyType, ValueType> &BTree<KeyType, ValueType, MAX>::findPredecessor(BTreeNode<KeyType, ValueType> *root)
 {
     if (root->subsets.empty())
-        return root->keysValues.back().first;
+    {
+        return root->keysValues.back();
+    }
 
     return findPredecessor(root->subsets.back());
 }
@@ -508,7 +515,7 @@ template<typename KeyType, typename ValueType, int MAX>
 ValueType *BTree<KeyType, ValueType, MAX>::recursiveFind(BTreeNode<KeyType, ValueType> *root, const KeyType &key) const
 {
     int index = find_ge(root, key);
-    bool found = index < root->keysValues.size() && root->keysValues.at(index).first == key;
+    bool found = (index < root->keysValues.size()) && (root->keysValues.at(index).first == key);
 
     if (found)
     {
@@ -529,7 +536,7 @@ template<typename KeyType, typename ValueType, int MAX>
 int BTree<KeyType, ValueType, MAX>::find_ge(BTreeNode<KeyType, ValueType> *root, const KeyType &key) const
 {
     int index = 0;
-    while (index < root->keysValues.size() && key > root->keysValues.at(index).first)
+    while ((index < root->keysValues.size()) && (key > root->keysValues.at(index).first))
     {
         ++index;
     }
