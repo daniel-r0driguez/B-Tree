@@ -1,5 +1,5 @@
-#ifndef CS008_LABS_APPLICATION_H
-#define CS008_LABS_APPLICATION_H
+#ifndef APPLICATION_H
+#define APPLICATION_H
 #include <BTREE/BTree.h>
 #include <iostream>
 
@@ -9,4 +9,4 @@ public:
 };
 
 
-#endif //CS008_LABS_APPLICATION_H
+#endif // APPLICATION_H

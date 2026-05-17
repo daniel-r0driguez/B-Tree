@@ -1,5 +1,5 @@
-#ifndef CS008_LABS_BTREE_CPP
-#define CS008_LABS_BTREE_CPP
+#ifndef BTREE_TPP
+#define BTREE_TPP
 #include<BTREE/BTree.h>
 
 template<typename KeyType, typename ValueType, int MAX>
@@ -543,4 +543,4 @@ int BTree<KeyType, ValueType, MAX>::find_ge(BTreeNode<KeyType, ValueType> *root,
     return index;
 }
 
-#endif //CS008_LABS_BTREE_CPP
+#endif // BTREE_TPP

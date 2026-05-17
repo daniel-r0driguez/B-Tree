@@ -1,5 +1,5 @@
-#ifndef CS008_LABS_BTREENODE_H
-#define CS008_LABS_BTREENODE_H
+#ifndef BTREENODE_H
+#define BTREENODE_H
 #include <vector>
 #include <utility>
 
@@ -13,4 +13,4 @@ struct BTreeNode {
 
 #include <BTREE/detail/BTreeNode.tpp>
 
-#endif //CS008_LABS_BTREENODE_H
+#endif // BTREENODE_H

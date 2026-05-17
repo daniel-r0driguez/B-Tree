@@ -1,5 +1,5 @@
-#ifndef CS008_LABS_BTREE_H
-#define CS008_LABS_BTREE_H
+#ifndef BTREE_H
+#define BTREE_H
 #include <BTREE/BTreeNode.h>
 #include <iostream>
 #include <iomanip>
@@ -86,4 +86,4 @@ private:
 
 #include <BTREE/detail/BTree.tpp>
 
-#endif //CS008_LABS_BTREE_H
+#endif // BTREE_H
