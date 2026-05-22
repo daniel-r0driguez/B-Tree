@@ -23,10 +23,7 @@ MIN_KEYS(static_cast<int>((0.5) + (MAX / 2.0)) - 1)
 template<typename KeyType, typename ValueType, int MAX>
 BTree<KeyType, ValueType, MAX>::BTree(const BTree<KeyType, ValueType> &btree)
 :
-_root(nullptr),
-_keyCount(0),
-MAX_KEYS(MAX - 1),
-MIN_KEYS(static_cast<int>((0.5) + (MAX / 2.0)) - 1)
+BTree()
 {
     *this = btree;
 }
@@ -191,7 +188,7 @@ void BTree<KeyType, ValueType, MAX>::clear()
 }
 
 template<typename KeyType, typename ValueType, int MAX>
-ValueType* BTree<KeyType, ValueType, MAX>::find(const KeyType &key) const
+const ValueType* BTree<KeyType, ValueType, MAX>::find(const KeyType &key) const
 {
     if (!this->_root) return nullptr;
     return recursiveFind(this->_root, key);
