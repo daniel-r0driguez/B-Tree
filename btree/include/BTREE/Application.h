@@ -5,6 +5,10 @@
 
 class Application {
 public:
+
+    /**
+     * Simple run function.
+     */
     static void run();
 };
 

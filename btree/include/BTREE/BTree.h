@@ -5,7 +5,7 @@
 #include <iomanip>
 
 /**
- * 
+ * BTree Class
  * @tparam KeyType key data type
  * @tparam ValueType value data type
  * @tparam MAX_CHILDREN max amount of children for each node
